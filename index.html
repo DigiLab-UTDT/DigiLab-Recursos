@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recursos Multimedia — Guía para Alumnos</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0d0d;
+    --surface: #161616;
+    --surface2: #1e1e1e;
+    --border: #2a2a2a;
+    --free: #ff1f96;
+    --paid: #ff6b35;
+    --mixed: #f0c040;
+    --text: #f0ede8;
+    --muted: #888;
+    --img: #4fa3ff;
+    --vid: #b06fff;
+    --snd: #ff8fab;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 0 0 80px;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 32px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(255,31,150,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(255,31,150,0.12);
+    color: var(--free);
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    border: 1px solid rgba(255,31,150,0.25);
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    max-width: 700px;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--free);
+  }
+
+  .subtitle {
+    color: var(--muted);
+    margin-top: 12px;
+    font-weight: 300;
+    font-size: 15px;
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .leg {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Filters */
+  .filters {
+    display: flex;
+    gap: 8px;
+    padding: 24px 32px 0;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 7px 16px;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--free);
+    color: var(--free);
+    background: rgba(255,31,150,0.08);
+  }
+
+  /* Section headers */
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 32px 32px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .section-title .type-badge {
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .free-badge { background: rgba(255,31,150,0.15); color: var(--free); border: 1px solid rgba(255,31,150,0.3); }
+  .paid-badge { background: rgba(255,107,53,0.15); color: var(--paid); border: 1px solid rgba(255,107,53,0.3); }
+  .mixed-badge { background: rgba(240,192,64,0.15); color: var(--mixed); border: 1px solid rgba(240,192,64,0.3); }
+
+  /* Cards */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    margin: 0 32px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .card {
+    background: var(--surface);
+    padding: 22px 24px;
+    transition: background 0.2s;
+    position: relative;
+  }
+  .card:hover { background: var(--surface2); }
+  .card.hidden { display: none; }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+
+  .site-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .site-url {
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration: none;
+    margin-top: 1px;
+    display: block;
+  }
+  .site-url:hover { color: var(--free); }
+
+  .media-tags {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .media-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  .tag-img { background: rgba(79,163,255,0.15); color: var(--img); }
+  .tag-vid { background: rgba(176,111,255,0.15); color: var(--vid); }
+  .tag-snd { background: rgba(255,143,171,0.15); color: var(--snd); }
+
+  .desc {
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .license-row {
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+    margin-bottom: 5px;
+    font-size: 12px;
+  }
+  .license-label {
+    color: var(--muted);
+    white-space: nowrap;
+    font-weight: 500;
+  }
+  .license-val {
+    color: #ccc;
+  }
+
+  .price-indicator {
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+  }
+  .free-bar { background: var(--free); }
+  .paid-bar { background: var(--paid); }
+  .mixed-bar { background: var(--mixed); }
+
+  /* Tip box */
+  .tip {
+    margin: 24px 32px 0;
+    background: rgba(255,31,150,0.06);
+    border: 1px solid rgba(255,31,150,0.2);
+    border-radius: 6px;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: #aaa;
+  }
+  .tip strong { color: var(--free); }
+
+  @media (max-width: 600px) {
+    header, .legend, .filters, .cards, .tip, .section-title { padding-left: 16px; padding-right: 16px; }
+    .cards { margin: 0 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">Primer Año · DIGILAB</div>
+  <h1>Recursos <em>Multimedia</em><br>para tus proyectos</h1>
+  <p class="subtitle">Imágenes · Videos · Sonidos — Dónde encontrarlos y qué podés hacer con ellos</p>
+</header>
+
+<div class="legend">
+  <div class="leg"><div class="dot" style="background:var(--free)"></div> Gratuito</div>
+  <div class="leg"><div class="dot" style="background:var(--paid)"></div> Pago</div>
+  <div class="leg"><div class="dot" style="background:var(--mixed)"></div> Gratis + Premium</div>
+  <div class="leg"><div class="dot" style="background:var(--img)"></div> Imágenes</div>
+  <div class="leg"><div class="dot" style="background:var(--vid)"></div> Videos</div>
+  <div class="leg"><div class="dot" style="background:var(--snd)"></div> Sonidos</div>
+</div>
+
+<div class="filters">
+  <button class="filter-btn active" onclick="filter('all')">Todos</button>
+  <button class="filter-btn" onclick="filter('free')">Gratuitos</button>
+  <button class="filter-btn" onclick="filter('paid')">Pago</button>
+  <button class="filter-btn" onclick="filter('mixed')">Freemium</button>
+  <button class="filter-btn" onclick="filter('img')">Imágenes</button>
+  <button class="filter-btn" onclick="filter('vid')">Videos</button>
+  <button class="filter-btn" onclick="filter('snd')">Sonidos</button>
+</div>
+
+<!-- GRATUITOS -->
+<div class="section-title">Sitios gratuitos <span class="type-badge free-badge">FREE</span></div>
+<div class="cards">
+
+  <div class="card" data-type="free" data-media="img">
+    <div class="price-indicator free-bar"></div>
+    <div class="card-top">
+      <div>
+        <div class="site-name">Unsplash</div>
+        <a class="site-url" href="https://unsplash.com" target="_blank">unsplash.com</a>
+      </div>
+    </div>
+    <div class="media-tags"><span class="media-tag tag-img">📷 Imágenes</span></div>
+    <p class="desc">Fotografías de alta calidad aportadas por la comunidad. Muy populares, con buscador potente.</p>
+    <div class="license-row"><span class="license-label">Licencia:</span><span class="license-val">Unsplash License — uso libre, incluso comercial. Sin atribución obligatoria (pero es buena práctica).</span></div>
+    <div class="license-row"><span class="license-label">Descarga:</span><span class="license-val">Directa, sin registro requerido.</span></div>
+  </div>
+
+  <div class="card" data-type="free" data-media="img">
+    <div class="price-indicator free-bar"></div>
+    <div class="card-top">
+      <div>
+        <div class="site-name">Pexels</div>
+        <a class="site-url" href="https://www.pexels.com" target="_blank">pexels.com</a>
+      </div>
+    </div>
+    <div class="media-tags"><span class="media-tag tag-img">📷 Imágenes</span><span class="media-tag tag-vid">🎬 Videos</span></div>
+    <p class="desc">Fotos y videos gratuitos. Interfaz muy limpia. También tiene sección de videos cortos.</p>
+    <div class="license-row"><span class="license-label">Licencia:</span><span class="license-val">Pexels License — libre para uso comercial y personal. Sin atribución obligatoria.</span></div>
+    <div class="license-row"><span class="license-label">Descarga:</span><span class="license-val">Sin registro. Múltiples resoluciones.</span></div>
+  </div>
+
+  <div class="card" data-type="free" data-media="img vid">
+    <div class="price-indicator free-bar"></div>
+    <div class="card-top">
+      <div>
+        <div class="site-name">Pixabay</div>
+        <a class="site-url" href="https://pixabay.com" target="_blank">pixabay.com</a>
+      </div>
+    </div>
+    <div class="media-tags"><span class="media-tag tag-img">📷 Imágenes</span><span class="media-tag tag-vid">🎬 Videos</span><span class="media-tag tag-snd">🔊 Sonidos</span></div>
+    <p class="desc">Gran variedad: fotos, vectores, ilustraciones, videos y música. Comunidad activa.</p>
+    <div class="license-row"><span class="license-label">Licencia:</span><span class="license-val">Pixabay License — libre sin atribución. Uso comercial permitido.</span></div>
+    <div class="license-row"><span class="license-label">Descarga:</span><span class="license-val">Requiere registro para descargas grandes.</span></div>
+  </div>
+
+  <div class="card" data-type="free" data-media="img">
+    <div class="price-indicator free-bar"></div>
+    <div class="card-top">
+      <div>
+        <div class="site-name">StockSnap.io</div>
+        <a class="site-url" href="https://stocksnap.io" target="_blank">stocksnap.io</a>
+      </div>
+    </div>
+    <div class="media-tags"><span class="media-tag tag-img">📷 Imágenes</span></div>
+    <p class="desc">Fotos de stock de calidad, curadas. Sin ruido ni fotos de baja calidad.</p>
+    <div class="license-row"><span class="license-label">Licencia:</span><span class="license-val">CC0 — dominio público total. Se puede usar para todo sin restricciones.</span></div>
+    <div class="license-row"><span class="license-label">Descarga:</span><span class="license-val">Directa, sin registro.</span></div>
+  </div>
+
+  <div class="card" data-type="free" data-media="vid">
+    <div class="price-indicator free-bar"></div>
+    <div class="card-top">
+      <div>
+        <div class="site-name">Coverr</div>
+        <a class="site-url" href="https://coverr.co" target="_blank">coverr.co</a>
+      </div>
+    </div>
+    <div class="media-tags"><span class="media-tag tag-vid">🎬 Videos</span></div>
+    <p class="desc">Videos de fondo de alta calidad para webs y presentaciones. Estética muy cuidada.</p>
+    <div class="license-row"><span class="license-label">Licencia:</span><span class="license-val">Coverr License — libre para uso personal y comercial.</span></div>
+    <div class="license-row"><span class="license-label">Descarga:</span><span class="license-val">Sin registro. Formato MP4.</span></div>
+  </div>
+
+  <div class="card" data-type="free" data-media="snd">
+    <div class="price-indicator free-bar"></div>
+    <div class="card-top">
+      <div>
+        <div class="site-name">Freesound</div>
+        <a class="site-url" href="https://freesound.org" target="_blank">freesound.org</a>
+      </div>
+    </div>
+    <div class="media-tags"><span class="media-tag tag-snd">🔊 Sonidos</span></div>
+    <p class="desc">Base de datos colaborativa enorme de efectos de sonido y samples. Muy usada en producción.</p>
+    <div class="license-row"><span class="license-label">Licencia:</span><span class="license-val">Variada: CC0, CC-BY, CC-BY-NC. Leer cada archivo antes de usar.</span></div>
+    <div class="license-row"><span class="license-label">Descarga:</span><span class="license-val">Requiere registro gratuito.</span></div>
+  </div>
+
+  <div class="card" data-type="free" data-media="snd">
+    <div class="price-indicator free-bar"></div>
+    <div class="card-top">
+      <div>
+        <div class="site-name">YouTube Audio Library</div>
+        <a class="site-url" href="https://studio.youtube.com" target="_blank">studio.youtube.com → Audio</a>
+      </div>
+    </div>
+    <div class="media-tags"><span class="media-tag tag-snd">🔊 Música</span><span class="media-tag tag-snd">🔊 Efectos</span></div>
+    <p class="desc">Librería de música y efectos de sonido de Google para creadores. Muy completa y organizada por género/estado de ánimo.</p>
+    <div class="license-row"><span class="license-label">Licencia:</span><span class="license-val">Libre para videos de YouTube. Algunas pistas requieren atribución.</span></div>
+    <div class="license-row"><span class="license-label">Descarga:</span><span class="license-val">Necesita cuenta de Google.</span></div>
+  </div>
+
+  <div class="card" data-type="free" data-media="img">
+    <div class="price-indicator free-bar"></div>
+    <div class="card-top">
+      <div>
+        <div class="site-name">Wikimedia Commons</div>
+        <a class="site-url" href="https://commons.wikimedia.org" target="_blank">commons.wikimedia.org</a>
+      </div>
+    </div>
+    <div class="media-tags"><span class="media-tag tag-img">📷 Imágenes</span><span class="media-tag tag-vid">🎬 Videos</span><span class="media-tag tag-snd">🔊 Audio</span></div>
+    <p class="desc">Repositorio de contenido libre de Wikipedia. Ideal para material histórico, científico, arte clásico.</p>
+    <div class="license-row"><span class="license-label">Licencia:</span><span class="license-val">CC o dominio público. Verificar archivo por archivo.</span></div>
+    <div class="license-row"><span class="license-label">Descarga:</span><span class="license-val">Sin registro.</span></div>
+  </div>
+
+</div>
+
+<!-- FREEMIUM -->
+<div class="section-title">Freemium — gratis con límites <span class="type-badge mixed-badge">FREEMIUM</span></div>
+<div class="cards">
+
+  <div class="card" data-type="mixed" data-media="img">
+    <div class="price-indicator mixed-bar"></div>
+    <div class="card-top">
+      <div>
+        <div class="site-name">Freepik</div>
+        <a class="site-url" href="https://www.freepik.com" target="_blank">freepik.com</a>
+      </div>
+    </div>
+    <div class="media-tags"><span class="media-tag tag-img">📷 Fotos</span><span class="media-tag tag-img">🎨 Vectores</span><span class="media-tag tag-img">🖼 Ilustraciones</span></div>
+    <p class="desc">Enorme colección de vectores, ilustraciones y fotos. Muy usado en diseño gráfico.</p>
+    <div class="license-row"><span class="license-label">Gratis:</span><span class="license-val">Con atribución obligatoria. Límite de descargas diarias.</span></div>
+    <div class="license-row"><span class="license-label">Premium:</span><span class="license-val">~€9–12/mes. Sin atribución, descargas ilimitadas.</span></div>
+  </div>
+
+  <div class="card" data-type="mixed" data-media="img">
+    <div class="price-indicator mixed-bar"></div>
+    <div class="card-top">
+      <div>
+        <div class="site-name">Flaticon</div>
+        <a class="site-url" href="https://www.flaticon.com" target="_blank">flaticon.com</a>
+      </div>
+    </div>
+    <div class="media-tags"><span class="media-tag tag-img">🎨 Íconos</span><span class="media-tag tag-img">🎨 Stickers</span></div>
+    <p class="desc">El mayor banco de íconos del mundo. Fundamental para UI/UX y presentaciones.</p>
+    <div class="license-row"><span class="license-label">Gratis:</span><span class="license-val">Con atribución. Formatos PNG y SVG básicos.</span></div>
+    <div class="license-row"><span class="license-label">Premium:</span><span class="license-val">Desde €9/mes. Sin atribución, SVG editable.</span></div>
+  </div>
+
+  <div class="card" data-type="mixed" data-media="img vid">
+    <div class="price-indicator mixed-bar"></div>
+    <div class="card-top">
+      <div>
+        <div class="site-name">Adobe Stock (Free)</div>
+        <a class="site-url" href="https://stock.adobe.com" target="_blank">stock.adobe.com</a>
+      </div>
+    </div>
+    <div class="media-tags"><span class="media-tag tag-img">📷 Imágenes</span><span class="media-tag tag-vid">🎬 Videos</span></div>
+    <p class="desc">Adobe tiene una selección gratuita con licencia CC. Integrado con Creative Cloud.</p>
+    <div class="license-row"><span class="license-label">Gratis:</span><span class="license-val">Colección gratuita reducida (CC). Acceso con cuenta Adobe.</span></div>
+    <div class="license-row"><span class="license-label">Premium:</span><span class="license-val">Desde $29/mes. Banco enorme de calidad profesional.</span></div>
+  </div>
+
+  <div class="card" data-type="mixed" data-media="snd">
+    <div class="price-indicator mixed-bar"></div>
+    <div class="card-top">
+      <div>
+        <div class="site-name">Epidemic Sound</div>
+        <a class="site-url" href="https://www.epidemicsound.com" target="_blank">epidemicsound.com</a>
+      </div>
+    </div>
+    <div class="media-tags"><span class="media-tag tag-snd">🔊 Música</span><span class="media-tag tag-snd">🔊 Efectos</span></div>
+    <p class="desc">Música libre de regalías de calidad profesional. Muy usada por YouTubers y creadores.</p>
+    <div class="license-row"><span class="license-label">Gratis:</span><span class="license-val">Prueba de 30 días.</span></div>
+    <div class="license-row"><span class="license-label">Premium:</span><span class="license-val">~$13/mes. Acceso total, sin copyright en plataformas.</span></div>
+  </div>
+
+</div>
+
+<!-- PAGO -->
+<div class="section-title">Pago / Profesional <span class="type-badge paid-badge">PAGO</span></div>
+<div class="cards">
+
+  <div class="card" data-type="paid" data-media="img vid">
+    <div class="price-indicator paid-bar"></div>
+    <div class="card-top">
+      <div>
+        <div class="site-name">Shutterstock</div>
+        <a class="site-url" href="https://www.shutterstock.com" target="_blank">shutterstock.com</a>
+      </div>
+    </div>
+    <div class="media-tags"><span class="media-tag tag-img">📷 Imágenes</span><span class="media-tag tag-vid">🎬 Videos</span><span class="media-tag tag-snd">🔊 Música</span></div>
+    <p class="desc">Referente mundial del stock profesional. Calidad muy alta, cobertura temática enorme.</p>
+    <div class="license-row"><span class="license-label">Costo:</span><span class="license-val">Desde $29/mes (10 imágenes). Planes corporativos disponibles.</span></div>
+    <div class="license-row"><span class="license-label">Licencia:</span><span class="license-val">Royalty-free para uso ilimitado en proyectos propios.</span></div>
+  </div>
+
+  <div class="card" data-type="paid" data-media="img">
+    <div class="price-indicator paid-bar"></div>
+    <div class="card-top">
+      <div>
+        <div class="site-name">Getty Images</div>
+        <a class="site-url" href="https://www.gettyimages.com" target="_blank">gettyimages.com</a>
+      </div>
+    </div>
+    <div class="media-tags"><span class="media-tag tag-img">📷 Imágenes</span><span class="media-tag tag-vid">🎬 Videos</span></div>
+    <p class="desc">El banco de imágenes más prestigioso. Fotos periodísticas únicas, eventos históricos, contenido exclusivo.</p>
+    <div class="license-row"><span class="license-label">Costo:</span><span class="license-val">Por imagen (~$175–500) o suscripción empresarial.</span></div>
+    <div class="license-row"><span class="license-label">Uso:</span><span class="license-val">Proyectos editoriales, publicidad, medios. No recomendado para estudiantes salvo embed gratuito.</span></div>
+  </div>
+
+</div>
+
+<div class="tip">
+  <strong>💡 Consejo para alumnos:</strong> Para la mayoría de los trabajos del año, <strong>Unsplash, Pexels y Pixabay</strong> van a ser más que suficientes. Si necesitás vectores o íconos, empezá por <strong>Freepik con atribución</strong>. Para música, la <strong>YouTube Audio Library</strong> es gratuita y sin complicaciones. Siempre anotá la fuente de cada recurso que uses — es parte del trabajo profesional.
+</div>
+
+<div style="margin: 28px 32px 0; background: #161616; border: 1px solid #2a2a2a; border-left: 3px solid #ff1f96; border-radius: 6px; padding: 20px 24px;">
+  <div style="font-family: 'Syne', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #ff1f96; margin-bottom: 12px;">📋 Nota sobre Licencias</div>
+  <p style="font-size: 13px; color: #aaa; line-height: 1.7; margin-bottom: 10px;">
+    Una <strong style="color:#f0ede8">licencia</strong> es el permiso legal que define cómo podés usar un recurso. Antes de usar cualquier imagen, video o sonido en un proyecto, siempre verificá qué tipo de licencia tiene.
+  </p>
+  <p style="font-size: 13px; color: #aaa; line-height: 1.7; margin-bottom: 14px;">Los tipos más comunes que vas a encontrar son:</p>
+  <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-bottom: 14px;">
+    <div style="background:#1e1e1e; border-radius:5px; padding: 12px 14px;">
+      <div style="font-size:12px; font-weight:700; color:#f0ede8; margin-bottom:4px;">CC0 / Dominio Público</div>
+      <div style="font-size:12px; color:#888;">Uso libre total, sin restricciones ni atribución. El autor renunció a sus derechos.</div>
+    </div>
+    <div style="background:#1e1e1e; border-radius:5px; padding: 12px 14px;">
+      <div style="font-size:12px; font-weight:700; color:#f0ede8; margin-bottom:4px;">CC-BY (Creative Commons)</div>
+      <div style="font-size:12px; color:#888;">Podés usar y modificar el recurso, pero debés mencionar al autor (atribución obligatoria).</div>
+    </div>
+    <div style="background:#1e1e1e; border-radius:5px; padding: 12px 14px;">
+      <div style="font-size:12px; font-weight:700; color:#f0ede8; margin-bottom:4px;">CC-BY-NC</div>
+      <div style="font-size:12px; color:#888;">Uso permitido con atribución, pero solo para fines no comerciales. No se puede vender.</div>
+    </div>
+    <div style="background:#1e1e1e; border-radius:5px; padding: 12px 14px;">
+      <div style="font-size:12px; font-weight:700; color:#f0ede8; margin-bottom:4px;">Royalty-Free</div>
+      <div style="font-size:12px; color:#888;">Pagás una vez y podés usar el recurso múltiples veces. No significa gratuito.</div>
+    </div>
+    <div style="background:#1e1e1e; border-radius:5px; padding: 12px 14px;">
+      <div style="font-size:12px; font-weight:700; color:#f0ede8; margin-bottom:4px;">Editorial</div>
+      <div style="font-size:12px; color:#888;">Solo para uso informativo o educativo. No permitido en publicidad ni uso comercial.</div>
+    </div>
+    <div style="background:#1e1e1e; border-radius:5px; padding: 12px 14px;">
+      <div style="font-size:12px; font-weight:700; color:#f0ede8; margin-bottom:4px;">Copyright / All Rights Reserved</div>
+      <div style="font-size:12px; color:#888;">Todos los derechos reservados al autor. No se puede usar sin permiso explícito.</div>
+    </div>
+  </div>
+  <p style="font-size:12px; color:#666; border-top: 1px solid #2a2a2a; padding-top: 12px;">
+    ⚠️ <strong style="color:#888">Importante:</strong> las condiciones de licencia pueden cambiar con el tiempo. Siempre verificá las condiciones actuales directamente en cada sitio antes de usar un recurso en un proyecto.
+  </p>
+</div>
+
+<div style="padding: 16px 32px 0; font-size: 11px; color: #444; text-transform: uppercase; letter-spacing: 1px;">
+  DIGILAB · Recursos Multimedia · Primer Año
+</div>
+
+<script>
+function filter(type) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  document.querySelectorAll('.card').forEach(card => {
+    const cardType = card.dataset.type;
+    const cardMedia = card.dataset.media || '';
+
+    if (type === 'all') {
+      card.classList.remove('hidden');
+    } else if (['free','paid','mixed'].includes(type)) {
+      card.classList.toggle('hidden', cardType !== type);
+    } else {
+      card.classList.toggle('hidden', !cardMedia.includes(type));
+    }
+  });
+}
+</script>
+</body>
+</html>
